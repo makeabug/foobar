@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls',
-    'readers',
+    'foobar.apps.readers',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -90,4 +90,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/foobar/static/'
 
-LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale/'))
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)

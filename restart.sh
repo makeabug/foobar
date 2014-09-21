@@ -17,8 +17,8 @@ sleep 3
 
 echo "starting foobar...."
 cd ${FOOBAR_ROOT} >/dev/null
-#python manage.py syncdb
-#python manage.py compilemessages
+python manage.py syncdb
+python manage.py compilemessages
 #python manage.py collectstatic
 echo >${FOOBAR_LOG_ROOT}foorbar.log
 

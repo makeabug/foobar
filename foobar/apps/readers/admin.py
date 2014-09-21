@@ -1,5 +1,5 @@
 from django.contrib import admin
-from readers.models import Category, Feed
+from .models import Category, Feed
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'position', 'updated_time',)

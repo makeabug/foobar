@@ -1,6 +1,6 @@
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True, verbose_name=_('Category Name'))
@@ -11,8 +11,8 @@ class Category(models.Model):
     
     class meta:
         db_table = 'readers_categories'
-        verbose_name = _('Reader Category')
-        verbose_name_plural = _('Reder Categories')
+        verbose_name = ugettext('Reader Category')
+        verbose_name_plural = ugettext('Reader Categories')
         
     def __unicode__(self):
         return self.name
@@ -27,8 +27,8 @@ class Feed(models.Model):
     
     class meta:
         db_table = 'readers_feeds'
-        verbose_name = _('Reader Feed')
-        verbose_name_plural = _('Reader Feeds')
+        verbose_name = ugettext('Reader Feed')
+        verbose_name_plural = ugettext('Reader Feeds')
         
     def __unicode__(self):
         return self.title

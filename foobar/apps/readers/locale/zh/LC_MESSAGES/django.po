@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-22 23:19+0800\n"
-"PO-Revision-Date: 2014-09-22 23:20+0800\n"
-"Last-Translator: Jack <Jack@example.com>\n"
+"POT-Creation-Date: 2014-09-24 18:45+0800\n"
+"PO-Revision-Date: 2014-09-24 18:45+0800\n"
+"Last-Translator: dengwei <dengwei@handscape.com.cn>\n"
 "Language-Team: none <LL@li.org>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.6.5\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: _;gettext;ugettext\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -24,11 +24,11 @@ msgstr ""
 
 #: ../../../models.py:6
 msgid "Category Name"
-msgstr "类名"
+msgstr "栏目名"
 
 #: ../../../models.py:7
 msgid "Category Slug"
-msgstr "分类标志"
+msgstr "栏目标识"
 
 #: ../../../models.py:8 ../../../models.py:24
 msgid "Position"
@@ -44,27 +44,30 @@ msgstr "更新时间"
 
 #: ../../../models.py:14 ../../../models.py:21
 msgid "Reader Category"
-msgstr "分类"
+msgstr "订阅源栏目"
 
 #: ../../../models.py:15
-msgid "Reder Categories"
-msgstr "分类"
+msgid "Reader Categories"
+msgstr "订阅源栏目"
 
 #: ../../../models.py:22
 msgid "Feed Title"
-msgstr "标题"
+msgstr "源标题"
 
 #: ../../../models.py:23
 msgid "Feed Url"
-msgstr "URL"
+msgstr "源地址"
 
 #: ../../../models.py:30
 msgid "Reader Feed"
-msgstr ""
+msgstr "订阅源"
 
 #: ../../../models.py:31
 msgid "Reader Feeds"
-msgstr ""
+msgstr "订阅源"
+
+#~ msgid "ReaderCategory"
+#~ msgstr "订阅源栏目"
 
 #~ msgid "base_fields"
 #~ msgstr "基本字段"
