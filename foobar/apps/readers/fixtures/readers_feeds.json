@@ -1,0 +1,26 @@
+[
+    {
+        "model": "readers.feed",
+        "pk": 1,
+        "fields": {
+            "category": 1,
+            "title": "Sina App Engine Blog",
+            "url": "http://blog.sae.sina.com.cn/feed",
+            "updated_time": "2014-09-21T14:45:29Z",
+            "created_time": "2014-09-21T14:45:29Z",
+            "position": 0
+        }
+    },
+    {
+        "model": "readers.feed",
+        "pk": 2,
+        "fields": {
+            "category": 1,
+            "title": "博客 - 伯乐在线",
+            "url": "http://blog.jobbole.com/feed/",
+            "updated_time": "2014-09-21T14:45:29Z",
+            "created_time": "2014-09-21T14:45:29Z",
+            "position": 1
+        }
+    }
+]

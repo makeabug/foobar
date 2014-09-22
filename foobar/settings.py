@@ -93,3 +93,5 @@ STATIC_ROOT = '/var/www/foobar/static/'
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
+
+FIXTURE_DIRS = ('fixtures/',)
