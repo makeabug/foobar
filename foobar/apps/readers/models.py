@@ -3,7 +3,7 @@
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
 import urllib2
-import xmltodict
+from xml.etree import ElementTree
 
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True, verbose_name=_('Category Name'))
@@ -29,20 +29,20 @@ class Feed(models.Model):
     created_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Created Time'))
     updated_time = models.DateTimeField(auto_now=True, verbose_name=_('Updated Time'))
     
-    _content = None
+    _element_tree = None
     
     @property
-    def content(self):
-        """Get feed content, and return json object."""
-        if self._content is None:
+    def element_tree(self):
+        """Get feed xml object."""
+        if self._element_tree is None:
             user_agent = 'Mozilla/5.0 (Windows NT 6.2; WOW64) '\
                          'AppleWebKit/537.36 (KHTML, like Gecko) '\
                          'Chrome/36.0.1985.125 Safari/537.36'
             headers = {'User-Agent': user_agent}
             req = urllib2.Request(self.url, headers=headers)
             response = urllib2.urlopen(req)
-            self._content = xmltodict.parse(response.read())
-        return self._content
+            self._element_tree = ElementTree.parse(response)
+        return self._element_tree
 
     class meta:
         db_table = 'readers_feeds'
