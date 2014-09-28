@@ -8,5 +8,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^polls/', include('polls.urls', namespace="polls")),
-    url(r'^readers/', include('foobar.apps.readers.urls', namespace="readers")),
+    url(r'^reader/', include('foobar.apps.readers.urls', namespace="readers")),
 )
