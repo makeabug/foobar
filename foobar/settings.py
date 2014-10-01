@@ -94,4 +94,10 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale/'),
 )
 
-FIXTURE_DIRS = ('fixtures/',)
+FIXTURE_DIRS = (
+    'fixtures/',
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
