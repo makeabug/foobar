@@ -1,4 +1,4 @@
 foobar
 ======
 
-"""Hello world"""
+'''Hello, world!'''
