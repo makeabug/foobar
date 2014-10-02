@@ -5,6 +5,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 import urllib2
 from xml.etree import ElementTree
 from collections import namedtuple
+from django.core.cache import cache
 
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True, verbose_name=_('Category Name'))
@@ -26,6 +27,7 @@ class Category(models.Model):
         return self.name
 
 class Feed(models.Model):
+    CHANNEL_CACHE_KEY = 'readers_feed_{0}'
     
     category = models.ForeignKey(Category, verbose_name=_('Reader Category'))
     title = models.CharField(max_length=200, verbose_name=_('Feed Title'))
@@ -48,6 +50,33 @@ class Feed(models.Model):
             response = urllib2.urlopen(req)
             self._element_tree = ElementTree.parse(response)
         return self._element_tree
+
+    def build_channel(self):
+        channel = {
+            'title': self.element_tree.find('./channel/title').text,
+            'link': self.element_tree.find('./channel/link').text,
+            'description': self.element_tree.find('./channel/description').text,
+            'lastBuildDate': self.element_tree.find('./channel/lastBuildDate').text,
+        }
+        items = []
+        for item in self.element_tree.findall('./channel/item'):
+            items.append({
+                'title': item.find('./title').text,
+                'link': item.find('./link').text,
+                'description': item.find('./description').text,
+                'comments': item.find('./comments').text,
+            })  
+        channel['items'] = items
+        cache.set(self.CHANNEL_CACHE_KEY.format(self.id), channel, 86400)
+
+        return channel
+
+    @property
+    def channel(self):
+        _channel = cache.get(self.CHANNEL_CACHE_KEY.format(self.id))
+        if _channel is None:
+            _channel = self.build_channel()
+        return _channel
 
     @property
     def desc(self):
