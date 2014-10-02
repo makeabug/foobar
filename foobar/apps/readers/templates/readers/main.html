@@ -1,1 +1,32 @@
 {% extends "main.html" %}
+
+{% block content %}
+
+<div class="col-xs-12 col-sm-9">
+  {% block reader_content %}{% endblock %}
+</div><!--/span-->
+
+<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+
+  <ul class="nav nav-sidebar navbar-default">
+	  {% for category in categories %}
+	  <li class="nav nav-sidebar list-group">
+	  	<a>{{ category.name }}</a>
+	  		<ul class="nav nav-sidebar">
+	  			{% for cate_feed in category.feeds %}
+	  			<li><a href="/reader/{{ cate_feed.id }}/">{{ cate_feed.title }}</a></li>
+	  			{% endfor %}
+			</ul>	  		
+	  </li>
+	  {% endfor %}
+  <ul/>
+
+  <!--<div class="list-group">
+  	{% for category in categories %}
+    <a href="/reader/category/{{ category.id }}/" class="list-group-item {% if current_category_id == category.id %} active {% endif %}">{{ category.name }}</a>
+    {% endfor %}
+  </div>-->
+
+</div><!--/span-->
+
+{% endblock %}

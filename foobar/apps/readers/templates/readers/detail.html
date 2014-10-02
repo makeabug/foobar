@@ -1,0 +1,20 @@
+{% extends "readers/main.html" %}
+
+{% block reader_content %}
+<p class="pull-right visible-xs">
+  <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+</p>
+<div class="jumbotron">
+  <h1>{{ feed.title }}</h1>
+  <p>{{ feed.desc }}</p>
+</div>
+<div class="row">
+  {% for item in feed.items %}
+  <div class="col-xs-6 col-lg-4">
+    <h2>{{ item.title|safe }}</h2>
+    <p>{{ item.description|safe }}</p>
+    <p><a class="btn btn-default" href="{{ item.link }}" target="_blank" role="button">View details &raquo;</a></p>
+  </div><!--/span-->
+  {% endfor %}
+</div><!--/row-->
+{% endblock %}
