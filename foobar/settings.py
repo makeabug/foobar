@@ -101,3 +101,51 @@ FIXTURE_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+        'TIMEOUT': 86400, # 1 day
+        'MAX_ENTRIES': 100000, #10W
+    }
+}
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': '[%(asctime)s] [%(name)s:%(lineno)d] [%(levelname)s] %(message)s'
+        },
+    },
+    'filters': {
+    },
+    'handlers': {
+        'default': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            #'filename': os.environ.get('FOOBAR_LOG_ROOT', '/var/log/foobar/') + 'foobar.log',
+            'filename': '/var/log/foobar/foobar.log',
+            'formatter':'standard',
+        },
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'foobar': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+    }
+}

@@ -20,7 +20,7 @@ cd ${FOOBAR_ROOT} >/dev/null
 python manage.py syncdb
 python manage.py compilemessages
 #python manage.py collectstatic
-echo >${FOOBAR_LOG_ROOT}foorbar.log
+echo >${FOOBAR_LOG_ROOT}foobar.log
 
 rm -f ${FOOBAR_LOG_ROOT}uwsgi.log
 uwsgi --ini foobar/uwsgi.ini --daemonize ${FOOBAR_LOG_ROOT}uwsgi.log

@@ -14,7 +14,7 @@ class DetailView(generic.DetailView):
 	template_name = 'readers/detail.html'
 
 	def get_context_data(self, **kwargs):
-		 context = super(DetailView, self).get_context_data(**kwargs)
-		 context['categories'] = Category.objects.all().order_by('position')
-		 context['current_category_id'] = self.get_object().category.id
-		 return context
+		context = super(DetailView, self).get_context_data(**kwargs)
+		context['categories'] = Category.objects.all().order_by('position')
+		context['current_category_id'] = self.get_object().category.id
+		return context

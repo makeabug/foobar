@@ -7,6 +7,9 @@ from xml.etree import ElementTree
 from collections import namedtuple
 from django.core.cache import cache
 
+import logging
+logger = logging.getLogger(__package__)
+
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True, verbose_name=_('Category Name'))
     slug = models.SlugField(max_length=32, unique=True, verbose_name=_('Category Slug'))
@@ -67,32 +70,34 @@ class Feed(models.Model):
                 'comments': item.find('./comments').text,
             })  
         channel['items'] = items
-        cache.set(self.CHANNEL_CACHE_KEY.format(self.id), channel, 86400)
+        cache_key = self.CHANNEL_CACHE_KEY.format(self.id)
+        cache.set(cache_key, channel, 86400)
+        logger.info(u'Cache {0} update.'.format(cache_key))
 
         return channel
 
     @property
     def channel(self):
-        _channel = cache.get(self.CHANNEL_CACHE_KEY.format(self.id))
+        cache_key = self.CHANNEL_CACHE_KEY.format(self.id)
+        _channel = cache.get(cache_key)
         if _channel is None:
+            logger.info(u'Cache {0} miss.'.format(cache_key))
             _channel = self.build_channel()
+        else:
+            logger.info(u'Cache {0} hit.'.format(cache_key))
         return _channel
 
     @property
     def desc(self):
-        return self.element_tree.find("./channel/description").text
+        return self.channel.get('description', '')
+#         return self.element_tree.find("./channel/description").text
 
     @property
     def items(self):
         rowset = []
         FeedItem = namedtuple('FeedItem', 'title,link,description,comments')
-        for item in self.element_tree.findall('./channel/item'):
-            rowset.append(FeedItem(
-                title = item.find('./title').text,
-                link = item.find('./link').text,
-                description = item.find('./description').text,
-                comments = item.find('./comments').text,
-            ))
+        for item in self.channel.get('items', []):
+            rowset.append(FeedItem(**item))
         return rowset
 
     class meta:
