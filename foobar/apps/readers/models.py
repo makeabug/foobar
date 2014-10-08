@@ -30,7 +30,7 @@ class Category(models.Model):
         return self.name
 
 class Feed(models.Model):
-    CHANNEL_CACHE_KEY = 'readers_feed_{0}'
+    CONTENT_CACHE_KEY = 'readers_feed_{0}'
     
     category = models.ForeignKey(Category, verbose_name=_('Reader Category'))
     title = models.CharField(max_length=200, verbose_name=_('Feed Title'))
@@ -41,63 +41,54 @@ class Feed(models.Model):
     
     _element_tree = None
     
+    def cache_content(self):
+        user_agent = 'Mozilla/5.0 (Windows NT 6.2; WOW64) '\
+                     'AppleWebKit/537.36 (KHTML, like Gecko) '\
+                     'Chrome/36.0.1985.125 Safari/537.36'
+        headers = {'User-Agent': user_agent}
+        req = urllib2.Request(self.url, headers=headers)
+        response = urllib2.urlopen(req)
+        _content = response.read()
+        
+        cache_key = self.CONTENT_CACHE_KEY.format(self.id)
+        cache.set(cache_key, _content, 86400)
+        logger.info(u'Cache {0} update.'.format(cache_key))
+        
+        return _content
+    
+    @property
+    def content(self):
+        cache_key = self.CONTENT_CACHE_KEY.format(self.id)
+        _content = cache.get(cache_key)
+        if _content is None:
+            logger.info(u'Cache {0} miss.'.format(cache_key))
+            _content = self.cache_content()
+        else:
+            logger.info(u'Cache {0} hit.'.format(cache_key))
+        return _content
+    
     @property
     def element_tree(self):
         """Get feed xml object."""
         if self._element_tree is None:
-            user_agent = 'Mozilla/5.0 (Windows NT 6.2; WOW64) '\
-                         'AppleWebKit/537.36 (KHTML, like Gecko) '\
-                         'Chrome/36.0.1985.125 Safari/537.36'
-            headers = {'User-Agent': user_agent}
-            req = urllib2.Request(self.url, headers=headers)
-            response = urllib2.urlopen(req)
-            self._element_tree = ElementTree.parse(response)
+            self._element_tree = ElementTree.fromstring(self.content)
         return self._element_tree
-
-    def build_channel(self):
-        channel = {
-            'title': self.element_tree.find('./channel/title').text,
-            'link': self.element_tree.find('./channel/link').text,
-            'description': self.element_tree.find('./channel/description').text,
-            'lastBuildDate': self.element_tree.find('./channel/lastBuildDate').text,
-        }
-        items = []
-        for item in self.element_tree.findall('./channel/item'):
-            items.append({
-                'title': item.find('./title').text,
-                'link': item.find('./link').text,
-                'description': item.find('./description').text,
-                'comments': item.find('./comments').text,
-            })  
-        channel['items'] = items
-        cache_key = self.CHANNEL_CACHE_KEY.format(self.id)
-        cache.set(cache_key, channel, 86400)
-        logger.info(u'Cache {0} update.'.format(cache_key))
-
-        return channel
-
-    @property
-    def channel(self):
-        cache_key = self.CHANNEL_CACHE_KEY.format(self.id)
-        _channel = cache.get(cache_key)
-        if _channel is None:
-            logger.info(u'Cache {0} miss.'.format(cache_key))
-            _channel = self.build_channel()
-        else:
-            logger.info(u'Cache {0} hit.'.format(cache_key))
-        return _channel
 
     @property
     def desc(self):
-        return self.channel.get('description', '')
-#         return self.element_tree.find("./channel/description").text
+        return self.element_tree.find("./channel/description").text
 
     @property
     def items(self):
         rowset = []
         FeedItem = namedtuple('FeedItem', 'title,link,description,comments')
-        for item in self.channel.get('items', []):
-            rowset.append(FeedItem(**item))
+        for item in self.element_tree.findall('./channel/item'):
+            rowset.append(FeedItem(
+                title = item.find('./title').text,
+                link = item.find('./link').text,
+                description = item.find('./description').text,
+                comments = item.find('./comments').text,
+            ))
         return rowset
 
     class meta:
