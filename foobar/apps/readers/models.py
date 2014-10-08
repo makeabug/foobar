@@ -98,3 +98,24 @@ class Feed(models.Model):
         
     def __unicode__(self):
         return self.title
+    
+class Archive(models.Model):
+    title = models.CharField(max_length=256, verbose_name=_('Page Title'))
+    link = models.URLField(max_length=200, unique=True, verbose_name=_('Page Link'))
+    comments = models.URLField(max_length=200, verbose_name=_('Page Comment'))
+    pub_date = models.DateTimeField(auto_now_add=True, verbose_name=_('Pub Date'))
+    dc_creator = models.CharField(max_length=128, verbose_name=_('Page Creator'))
+    tag = models.CharField(max_length=256, verbose_name=_('Page Tag'))
+    description = models.TextField(default='', verbose_name=_('Page Description'))
+    content = models.TextField(default='', verbose_name=_('Page Content'))
+    comment_rss = models.URLField(max_length=200, verbose_name=_('Comment Rss'))
+    slash_comments = models.IntegerField(default=0, verbose_name=_('Slash Comments'))
+    
+    created_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Created Time'))
+    updated_time = models.DateTimeField(auto_now=True, verbose_name=_('Updated Time'))
+    
+    class meta:
+        db_table = 'readers_archives'
+        verbose_name = ugettext('Reader Page')
+        verbose_name_plural = ugettext('Reader Pages')
+    
