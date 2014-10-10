@@ -7,7 +7,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^$', 'foobar.views.index', name='index'),
+    url(r'^api/', 'foobar.views.api', name='api'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^polls/', include('polls.urls', namespace="polls")),
     url(r'^reader/', include('foobar.apps.readers.urls', namespace="readers")),
+
 )

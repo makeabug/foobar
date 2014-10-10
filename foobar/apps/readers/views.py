@@ -1,7 +1,19 @@
 # -*- coding: utf-8 -*-
 
 from django.views import generic
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
 from .models import Feed, Category
+
+
+@api_view(('GET',))
+def api(request, format=None):
+    return Response({
+            	'detail': reverse('detail', request=request, format=format),
+            })
 
 class IndexView(generic.ListView):
 	template_name = 'readers/index.html'
