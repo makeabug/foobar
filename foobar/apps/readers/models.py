@@ -86,33 +86,26 @@ class Feed(models.Model):
             'slash': 'http://purl.org/rss/1.0/modules/slash/',
             'content': "http://purl.org/rss/1.0/modules/content/",
         }
+        date_fmt = '%a, %d %b %Y %H:%M:%S +0000'
 
         for item in self.element_tree.findall('./channel/item'):
             try:
                 encoded = item.find('./content:encoded', namespaces)
-                date_fmt = '%a, %d %b %Y %H:%M:%S +0000'
-
-                attr = {
-                    'title': item.find('./title').text,
-                    'comments': item.find('./comments').text,
-                    'pub_date': timezone.datetime.strptime(item.find('./pubDate').text, date_fmt),
-                    'dc_creator': item.find('./dc:creator', namespaces).text,
-                    'tag': ','.join([tag.text for tag in item.findall('./category')]),
-                    'description': item.find('./description').text,
-                    'content': encoded.text if encoded else '',
-                    'comment_rss': item.find('./wfw:commentRss', namespaces).text,
-                    'slash_comments': item.find('./slash:comments', namespaces).text,
-                }
-
-                created, article = Article.objects.get_or_create(
+                article, created = Article.objects.update_or_create(
+                    feed = self,
                     link = item.find('./link').text,
-                    defaults = dict({'feed': self}, **attr)
+                    defaults = {
+                        'title': item.find('./title').text,
+                        'comments': item.find('./comments').text,
+                        'pub_date': timezone.datetime.strptime(item.find('./pubDate').text, date_fmt),
+                        'dc_creator': item.find('./dc:creator', namespaces).text,
+                        'tag': ','.join([tag.text for tag in item.findall('./category')]),
+                        'description': item.find('./description').text,
+                        'content': encoded.text if encoded else '',
+                        'comment_rss': item.find('./wfw:commentRss', namespaces).text,
+                        'slash_comments': item.find('./slash:comments', namespaces).text,
+                    }
                 )
-
-                if not created:
-                    for field, val in attr.items():
-                        setattr(article, field, val)
-                    article.save()
 
                 total += 1
             except Exception as e:
