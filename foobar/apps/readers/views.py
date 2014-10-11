@@ -5,15 +5,17 @@ from django.views import generic
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework import generics
 
-from .models import Feed, Category
+from .models import Feed, Category, Article
+from .serializers import ArticleSerializer
 
 
 @api_view(('GET',))
-def api(request, format=None):
+def api_root(request, format=None):
     return Response({
-            	'detail': reverse('detail', request=request, format=format),
-            })
+        'articles': reverse('readers:articles', request=request, format=format),
+    })
 
 class IndexView(generic.ListView):
 	template_name = 'readers/index.html'
@@ -30,3 +32,7 @@ class DetailView(generic.DetailView):
 		context['categories'] = Category.objects.all().order_by('position')
 		context['current_category_id'] = self.get_object().category.id
 		return context
+
+class ArticleListView(generics.ListCreateAPIView):
+	queryset = Article.objects.all()
+	serializer_class = ArticleSerializer
