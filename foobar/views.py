@@ -20,5 +20,5 @@ def api_root(request, format=None):
 	-H "Accept: application/json; indent=4"`
 	"""
 	return Response({
-		'reader': reverse('readers:reader-api', request=request, format=format),
+		'reader': reverse('readers:api', request=request, format=format),
 	})
