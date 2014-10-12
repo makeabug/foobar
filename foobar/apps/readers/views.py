@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from django.views import generic
+from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage
+from django.core.paginator import PageNotAnInteger
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -18,10 +21,23 @@ def api_root(request, format=None):
     })
 
 class IndexView(generic.ListView):
+    # model = Article
     template_name = 'readers/index.html'
+    context_object_name = 'articles'
 
     def get_queryset(self):
-        return Feed.objects.all()
+        limit = 10
+        articles = Article.objects.all().order_by('-updated_time', '-pub_date')
+        paginator = Paginator(articles, limit)
+        
+        page = self.request.GET.get('page')
+        try:
+            articles = paginator.page(page)
+        except PageNotAnInteger:
+            articles = paginator.page(1)
+        except EmptyPage:
+            articles = paginator.page(paginator.num_pages)
+        return articles
 
 class DetailView(generic.DetailView):
     model = Feed
@@ -34,6 +50,6 @@ class DetailView(generic.DetailView):
         return context
 
 class ArticleListView(generics.ListCreateAPIView):
-    queryset = Article.objects.all().order_by('-updated_time')
+    queryset = Article.objects.all().order_by('-updated_time', '-pub_date')
     serializer_class = ArticleSerializer
     paginate_by = 10

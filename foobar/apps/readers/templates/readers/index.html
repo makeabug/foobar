@@ -1,1 +1,30 @@
 {% extends "main.html" %}
+
+{% block content %}
+<div class="acticle-container">
+    <div class="acticle-header">
+        <h3>Hello, Foobar!</h3>
+    </div>
+
+    {% for article in articles.object_list %}
+    <div class="row acticle-row">
+	    <h4>{{articles.start_index|add:forloop.counter0}}. <a href="{{ article.link }}" target="_blank">{{ article.title }}</a></h4>
+	    <p>{{ article.description|safe }}</p>
+    </div>
+    {% endfor %}
+    
+    <div class="article-footer">
+	    <ul class="pager">
+	        {% if articles.has_previous %}
+	        <li><a href="?page={{ articles.previous_page_number }}">&laquo;</a></li>
+	        {% endif %}
+	        Page {{ articles.number }} of {{ articles.paginator.num_pages }}
+	        {% if articles.has_next %}
+	        <li><a href="?page={{ articles.next_page_number }}">&raquo;</a></li>
+	        {% endif %}
+	    </ul>
+    </div>
+</div>
+
+
+{% endblock %}

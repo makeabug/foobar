@@ -13,7 +13,7 @@ ps auxf|grep "foobar/uwsgi.ini"|grep -v grep|awk {'print $2'}|xargs kill -9
 
 echo "wait for foobar to exit...."
 
-sleep 3
+sleep 1
 
 echo "starting foobar...."
 cd ${FOOBAR_ROOT} >/dev/null
