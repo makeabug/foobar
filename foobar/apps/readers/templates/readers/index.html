@@ -1,4 +1,4 @@
-{% extends "main.html" %}
+{% extends "blank.html" %}
 
 {% block content %}
 <div class="acticle-container">
@@ -12,7 +12,7 @@
 	    <p>{{ article.description|safe }}</p>
     </div>
     {% endfor %}
-    
+
     <div class="article-footer">
 	    <ul class="pager">
 	        {% if articles.has_previous %}

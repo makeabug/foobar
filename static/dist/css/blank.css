@@ -1,0 +1,98 @@
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+body {
+  margin: 6px;
+}
+footer {
+  padding: 30px 0;
+}
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 767px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all .25s ease-out;
+         -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+  }
+
+  .row-offcanvas-right {
+    right: 0;
+  }
+
+  .row-offcanvas-left {
+    left: 0;
+  }
+
+  .row-offcanvas-right
+  .sidebar-offcanvas {
+    right: -50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -50%; /* 6 columns */
+  }
+
+  .row-offcanvas-right.active {
+    right: 50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left.active {
+    left: 50%; /* 6 columns */
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 50%; /* 6 columns */
+  }
+}
+
+.acticle-container {
+    width: 780px;
+    /* padding-right: 15px;
+    padding-left: 15px; */
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #eee;
+}
+
+.acticle-header {
+    height: 56px;
+    background-color: #828282;
+    padding: 15px;
+}
+
+.acticle-header h3 {
+    margin: 0px;
+}
+
+.acticle-row {
+    margin: 15px 30px 0px 30px;
+    font-size: 12px;
+}
+
+.acticle-row h4 {
+    margin-top: 2px;
+    margin-top: 2px;
+}
+
+.article-footer {
+    height: 40px;
+}
+
+.pager li>a {
+    padding: 0px;
+    background-color: #eee;
+    border: 0px;
+}

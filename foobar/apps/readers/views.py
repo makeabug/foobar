@@ -26,10 +26,10 @@ class IndexView(generic.ListView):
     context_object_name = 'articles'
 
     def get_queryset(self):
-        limit = 10
+        limit = 20
         articles = Article.objects.all().order_by('-updated_time', '-pub_date')
         paginator = Paginator(articles, limit)
-        
+
         page = self.request.GET.get('page')
         try:
             articles = paginator.page(page)
