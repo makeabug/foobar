@@ -6,6 +6,7 @@
             "category": 1,
             "title": "Sina App Engine Blog",
             "url": "http://blog.sae.sina.com.cn/feed",
+            "is_active": true,
             "updated_time": "2014-09-21T14:45:29Z",
             "created_time": "2014-09-21T14:45:29Z"
         }
@@ -16,6 +17,7 @@
         "fields": {
             "category": 1,
             "title": "博客 - 伯乐在线",
+            "is_active": true,
             "url": "http://blog.jobbole.com/feed/",
             "updated_time": "2014-09-21T14:45:29Z",
             "created_time": "2014-09-21T14:45:29Z"
@@ -28,6 +30,19 @@
             "category": 1,
             "title": "酷 壳 - CoolShell.cn",
             "url": "http://coolshell.cn/feed",
+            "is_active": true,
+            "updated_time": "2014-09-21T14:45:29Z",
+            "created_time": "2014-09-21T14:45:29Z"
+        }
+    },
+    {
+        "model": "readers.feed",
+        "pk": 4,
+        "fields": {
+            "category": 2,
+            "title": "36氪 | 关注互联网创业",
+            "url": "http://www.36kr.com/feed/",
+            "is_active": false,
             "updated_time": "2014-09-21T14:45:29Z",
             "created_time": "2014-09-21T14:45:29Z"
         }
@@ -39,6 +54,7 @@
             "category": 1,
             "title": "风雪之隅",
             "url": "http://www.laruence.com/feed",
+            "is_active": true,
             "updated_time": "2014-09-21T14:45:29Z",
             "created_time": "2014-09-21T14:45:29Z"
         }
@@ -50,6 +66,7 @@
             "category": 2,
             "title": "爱范儿 · Beats of Bits",
             "url": "http://www.ifanr.com/feed",
+            "is_active": false,
             "updated_time": "2014-09-21T14:45:29Z",
             "created_time": "2014-09-21T14:45:29Z"
         }
