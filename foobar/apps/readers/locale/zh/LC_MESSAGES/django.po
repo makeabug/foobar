@@ -7,64 +7,130 @@ msgid ""
 msgstr ""
 "Project-Id-Version: reader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-24 18:45+0800\n"
-"PO-Revision-Date: 2014-09-24 18:45+0800\n"
-"Last-Translator: dengwei <dengwei@handscape.com.cn>\n"
+"POT-Creation-Date: 2014-10-19 18:14+0800\n"
+"PO-Revision-Date: 2014-10-19 18:16+0800\n"
+"Last-Translator: Jack <Jack@example.com>\n"
 "Language-Team: none <LL@li.org>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.9\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-KeywordsList: _;gettext;ugettext\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ../../..\n"
 
-#: ../../../models.py:6
+#: ../../../admin.py:35 ../../../models.py:143 ../../../models.py:144
+#: ../../../models.py:157
+msgid "Tag"
+msgstr "标签"
+
+#: ../../../admin.py:39 ../../../models.py:158
+msgid "Description"
+msgstr "简介"
+
+#: ../../../admin.py:44 ../../../models.py:159
+msgid "Content"
+msgstr "内容"
+
+#: ../../../admin.py:50 ../../../models.py:38 ../../../models.py:151
+msgid "Title"
+msgstr "标题"
+
+#: ../../../admin.py:55 ../../../models.py:153
+msgid "Comment"
+msgstr "评论"
+
+#: ../../../admin.py:60 ../../../models.py:160
+msgid "Comment Rss"
+msgstr "评论RSS"
+
+#: ../../../models.py:17
 msgid "Category Name"
 msgstr "栏目名"
 
-#: ../../../models.py:7
+#: ../../../models.py:18
 msgid "Category Slug"
 msgstr "栏目标识"
 
-#: ../../../models.py:8 ../../../models.py:24
+#: ../../../models.py:19
 msgid "Position"
 msgstr "位置"
 
-#: ../../../models.py:9 ../../../models.py:25
+#: ../../../models.py:20 ../../../models.py:42 ../../../models.py:163
 msgid "Created Time"
 msgstr "创建时间"
 
-#: ../../../models.py:10 ../../../models.py:26
+#: ../../../models.py:21 ../../../models.py:43 ../../../models.py:164
 msgid "Updated Time"
 msgstr "更新时间"
 
-#: ../../../models.py:14 ../../../models.py:21
-msgid "Reader Category"
-msgstr "订阅源栏目"
-
-#: ../../../models.py:15
-msgid "Reader Categories"
-msgstr "订阅源栏目"
-
-#: ../../../models.py:22
-msgid "Feed Title"
-msgstr "源标题"
-
-#: ../../../models.py:23
-msgid "Feed Url"
-msgstr "源地址"
+#: ../../../models.py:29 ../../../models.py:37
+msgid "Category"
+msgstr "分类"
 
 #: ../../../models.py:30
-msgid "Reader Feed"
-msgstr "订阅源"
+msgid "Categories"
+msgstr "分类"
 
-#: ../../../models.py:31
-msgid "Reader Feeds"
-msgstr "订阅源"
+#: ../../../models.py:39
+msgid "URL"
+msgstr "URL"
+
+#: ../../../models.py:41
+msgid "Is Active"
+msgstr "是否激和"
+
+#: ../../../models.py:131 ../../../models.py:150
+msgid "Feed"
+msgstr "源"
+
+#: ../../../models.py:132
+msgid "Feeds"
+msgstr "源"
+
+#: ../../../models.py:138
+msgid "Name"
+msgstr "名称"
+
+#: ../../../models.py:139
+msgid "Counter"
+msgstr "总数"
+
+#: ../../../models.py:152
+msgid "Link"
+msgstr "链接"
+
+#: ../../../models.py:154
+msgid "Pub Date"
+msgstr "发布时间"
+
+#: ../../../models.py:155
+msgid "Creator"
+msgstr "作者"
+
+#: ../../../models.py:161
+msgid "Slash Comments"
+msgstr ""
+
+#: ../../../models.py:168
+msgid "Article"
+msgstr "文章"
+
+#: ../../../models.py:169
+msgid "Articles"
+msgstr "文章"
+
+#~ msgid "Reader Category"
+#~ msgstr "订阅源栏目"
+
+#~ msgid "Reader Feed"
+#~ msgstr "订阅源"
+
+#~ msgid "Reader Feeds"
+#~ msgstr "订阅源"
 
 #~ msgid "ReaderCategory"
 #~ msgstr "订阅源栏目"
@@ -97,10 +163,6 @@ msgstr "订阅源"
 #, fuzzy
 #~ msgid "total_cost"
 #~ msgstr "订购总价(单位:分)"
-
-#, fuzzy
-#~ msgid "count"
-#~ msgstr "玩家12、王总数"
 
 #, fuzzy
 #~ msgid "purchased_time"
@@ -208,9 +270,6 @@ msgstr "订阅源"
 
 #~ msgid "vip_exp"
 #~ msgstr "VIP经验值"
-
-#~ msgid "is_active"
-#~ msgstr "是否激和"
 
 #~ msgid "goods_is_active_help"
 #~ msgstr "是否使用该商品"

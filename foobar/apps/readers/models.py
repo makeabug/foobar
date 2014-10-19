@@ -37,7 +37,6 @@ class Feed(models.Model):
     category = models.ForeignKey(Category, verbose_name=_('Category'))
     title = models.CharField(max_length=200, verbose_name=_('Title'))
     url = models.URLField(max_length=200, unique=True, verbose_name=_('URL'))
-    # position = models.IntegerField(default=0, verbose_name=_('Position'))
     is_active = models.BooleanField(default=True, verbose_name=_('Is Active'))
     created_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Created Time'))
     updated_time = models.DateTimeField(auto_now=True, verbose_name=_('Updated Time'))
@@ -86,26 +85,25 @@ class Feed(models.Model):
             'slash': 'http://purl.org/rss/1.0/modules/slash/',
             'content': "http://purl.org/rss/1.0/modules/content/",
         }
-        date_fmt = '%a, %d %b %Y %H:%M:%S +0000'
+        date_fmt = '%a, %d %b %Y %H:%M:%S'
 
         for item in self.element_tree.findall('./channel/item'):
             try:
-                encoded = item.find('./content:encoded', namespaces)
+                creator = item.find('./dc:creator', namespaces)
                 article, created = Article.objects.update_or_create(
                     feed = self,
                     link = item.find('./link').text,
                     defaults = {
                         'title': item.find('./title').text,
-                        'comments': item.find('./comments').text,
-                        'pub_date': timezone.datetime.strptime(item.find('./pubDate').text, date_fmt),
-                        'dc_creator': item.find('./dc:creator', namespaces).text,
-                        'tag': ','.join([tag.text for tag in item.findall('./category')]),
                         'description': item.find('./description').text,
-                        'content': encoded.text if encoded else '',
-                        'comment_rss': item.find('./wfw:commentRss', namespaces).text,
-                        'slash_comments': item.find('./slash:comments', namespaces).text,
+                        'pub_date': timezone.datetime.strptime(item.find('./pubDate').text[:-6], date_fmt),
+                        'dc_creator': u'佚名' if creator is None else creator.text
                     }
                 )
+
+                for tag in item.findall('./category'):
+                    t, created = Tag.objects.get_or_create(name=tag.text)
+                    article.tags.add(t)
 
                 total += 1
             except Exception as e:
@@ -130,19 +128,26 @@ class Feed(models.Model):
     def __unicode__(self):
         return self.title
 
+class Tag(models.Model):
+    name = models.CharField(max_length=128, verbose_name=_('Name'))
+    counter = models.IntegerField(default=0, verbose_name=_('Counter'))
+
+    class meta:
+        db_table = 'readers_tags'
+        verbose_name = ugettext('Tag')
+        verbose_name_plural = ugettext('Tag')
+
+    def __unicode__(self):
+        return self.name
+
 class Article(models.Model):
     feed = models.ForeignKey(Feed, verbose_name=_('Feed'))
     title = models.CharField(max_length=256, verbose_name=_('Title'))
     link = models.URLField(max_length=200, unique=True, verbose_name=_('Link'))
-    comments = models.URLField(max_length=200, verbose_name=_('Comment'))
     pub_date = models.DateTimeField(null=True, verbose_name=_('Pub Date'))
     dc_creator = models.CharField(max_length=128, verbose_name=_('Creator'))
-    tag = models.CharField(max_length=256, verbose_name=_('Tag'))
+    tags = models.ManyToManyField(Tag, blank=True, verbose_name=_('Tag'))
     description = models.TextField(default='', verbose_name=_('Description'))
-    content = models.TextField(default='', verbose_name=_('Content'))
-    comment_rss = models.URLField(max_length=200, verbose_name=_('Comment Rss'))
-    slash_comments = models.IntegerField(default=0, verbose_name=_('Slash Comments'))
-
     created_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Created Time'))
     updated_time = models.DateTimeField(auto_now=True, verbose_name=_('Updated Time'))
 
@@ -150,3 +155,4 @@ class Article(models.Model):
         db_table = 'readers_articles'
         verbose_name = ugettext('Article')
         verbose_name_plural = ugettext('Articles')
+

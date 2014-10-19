@@ -7,8 +7,7 @@
             "title": "Sina App Engine Blog",
             "url": "http://blog.sae.sina.com.cn/feed",
             "updated_time": "2014-09-21T14:45:29Z",
-            "created_time": "2014-09-21T14:45:29Z",
-            "position": 0
+            "created_time": "2014-09-21T14:45:29Z"
         }
     },
     {
@@ -19,8 +18,40 @@
             "title": "博客 - 伯乐在线",
             "url": "http://blog.jobbole.com/feed/",
             "updated_time": "2014-09-21T14:45:29Z",
-            "created_time": "2014-09-21T14:45:29Z",
-            "position": 1
+            "created_time": "2014-09-21T14:45:29Z"
+        }
+    },
+    {
+        "model": "readers.feed",
+        "pk": 3,
+        "fields": {
+            "category": 1,
+            "title": "酷 壳 - CoolShell.cn",
+            "url": "http://coolshell.cn/feed",
+            "updated_time": "2014-09-21T14:45:29Z",
+            "created_time": "2014-09-21T14:45:29Z"
+        }
+    },
+    {
+        "model": "readers.feed",
+        "pk": 5,
+        "fields": {
+            "category": 1,
+            "title": "风雪之隅",
+            "url": "http://www.laruence.com/feed",
+            "updated_time": "2014-09-21T14:45:29Z",
+            "created_time": "2014-09-21T14:45:29Z"
+        }
+    },
+    {
+        "model": "readers.feed",
+        "pk": 6,
+        "fields": {
+            "category": 2,
+            "title": "爱范儿 · Beats of Bits",
+            "url": "http://www.ifanr.com/feed",
+            "updated_time": "2014-09-21T14:45:29Z",
+            "created_time": "2014-09-21T14:45:29Z"
         }
     }
 ]
