@@ -12,7 +12,7 @@ class LocalDateTimeField(serializers.DateTimeField):
 
 class ArticleSerializer(serializers.ModelSerializer):
 
-    pub_date = LocalDateTimeField('pub_date', format='%Y-%m-%d %H:%M:%S')
+    #pub_date = LocalDateTimeField('pub_date', format='%Y-%m-%d %H:%M:%S')
 
     class Meta:
         model = Article
