@@ -113,12 +113,10 @@ class Feed(models.Model):
 
     @classmethod
     def fetchAll(cls):
-        feeds = cls.objects.filter(is_active=True)
-        total = 0
-        for feed in feeds:
-            total += feed.fetch()
-
-        return total
+        return reduce(
+            lambda x, y: x.fetch() + y.fetch(), 
+            cls.objects.filter(is_active=True)
+        )
 
     class meta:
         db_table = 'readers_feeds'
