@@ -128,7 +128,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             #'filename': os.environ.get('FOOBAR_LOG_ROOT', '/var/log/foobar/') + 'foobar.log',
-            'filename': '/mnt/logs/foobar/foobar.log',
+            'filename': '/var/logs/foobar/foobar.log',
             'formatter':'standard',
         },
         'console':{

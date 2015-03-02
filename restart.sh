@@ -5,7 +5,7 @@ if [ -z "$FOOBAR_ROOT" ]; then
 fi
 
 if [ -z "$FOOBAR_LOG_ROOT" ]; then
-    export FOOBAR_LOG_ROOT=/mnt/logs/foobar/;
+    export FOOBAR_LOG_ROOT=/var/logs/foobar/;
 fi
 
 ps auxf|grep "foobar/uwsgi.ini"|grep -v grep|awk {'print $2'}|xargs kill -9
